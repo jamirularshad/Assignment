@@ -19,16 +19,6 @@ void findBook(Book *books, int size);  // if implemented
 void updateBook(Book *books, int size);
 void sortBooksAsc(Book *books, int size);
 
-// Function definitions
-
-// (other functions)
-
-// sortBooksAsc definition
-void sortBooksAsc(Book *books, int size) {
-    // Your sorting algorithm implementation (e.g., bubble sort)
-    // ...
-}
-
 
 
 int main() {
@@ -324,6 +314,7 @@ void updateBook(Book *books, int size) {
             return;
         }
     }
+}
 
 void sortBooksAsc(Book *books, int size) {
     // Your sorting algorithm implementation (e.g., bubble sort)
