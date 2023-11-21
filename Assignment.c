@@ -21,6 +21,7 @@ void sortBooksAsc(Book *books, int size);
 
 
 
+
 int main() {
     Book bookshop[MAX];
     char dummy;
@@ -62,7 +63,7 @@ int main() {
     return 0;
 }
 
-// Function definitions
+
 
 void listBooks(Book *books, int size) {
     printf("listBooks():\n");
@@ -108,13 +109,13 @@ int addBook(Book *books, int size) {
         }
     }
 
-    printf("Enter title:\n");
+    printf("Enter book title:\n");
     fgets(title, 40, stdin);
     if (p = strchr(title, '\n')) {
         *p = '\0';
     }
 
-    printf("Enter author:\n");
+    printf("Enter author name:\n");
     fgets(author, 40, stdin);
     if (p = strchr(author, '\n')) {
         *p = '\0';
@@ -126,7 +127,7 @@ int addBook(Book *books, int size) {
     printf("Enter quantity:\n");
     scanf("%d", &books[size].quantity);
 
-    // Add the new book
+   
     books[size].bookID = bookID;
     strcpy(books[size].title, title);
     strcpy(books[size].author, author);
@@ -317,14 +318,12 @@ void updateBook(Book *books, int size) {
 }
 
 void sortBooksAsc(Book *books, int size) {
-    // Your sorting algorithm implementation (e.g., bubble sort)
-    // ...
-
-    // Example: Bubble Sort based on titles
+   
     for (int i = 0; i < size - 1; i++) {
         for (int j = 0; j < size - 1 - i; j++) {
-            // Compare titles and swap if necessary
-            if (strcmp(books[j].title, books[j + 1].title) > 0) {
+            // Compare IDs
+            // and swap if necessary
+            if (books[j].bookID > books[j + 1].bookID) {
                 // Swap books
                 Book temp = books[j];
                 books[j] = books[j + 1];
