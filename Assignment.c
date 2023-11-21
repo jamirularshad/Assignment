@@ -71,12 +71,12 @@ void listBooks(Book *books, int size) {
     if (size > 0) {
         int i;
         for (i = 0; i < size; i++) {
-            printf("Book ID: %d\n", books[i].bookID);
-            printf("Title: %s\n", books[i].title);
-            printf("Author: %s\n", books[i].author);
-            printf("Price: %.2f\n", books[i].price);
+            printf("BookID: %d\n", books[i].bookID);
+            printf("Book title: %s\n", books[i].title);
+            printf("Author name: %s\n", books[i].author);
+            printf("Book price: %.2f\n", books[i].price);
             printf("Quantity: %d\n", books[i].quantity);
-            printf("\n");
+            // printf("\n");
         }
     } else {
         printf("The bookshop is empty\n");
@@ -89,10 +89,7 @@ void listBooks(Book *books, int size) {
 int addBook(Book *books, int size) {
     printf("addBook():\n");
 
-    if (size == MAX) {
-        printf("The bookshop is full! Unable to addBook()\n");
-        return size;
-    }
+    
 
     int i, bookID;
     char title[40], author[40], dummy[20], *p;
@@ -101,13 +98,7 @@ int addBook(Book *books, int size) {
     scanf("%d", &bookID);
     scanf("%c", &dummy);  // Consume the newline character
 
-    // Check if bookID already exists
-    for (i = 0; i < size; i++) {
-        if (bookID == books[i].bookID) {
-            printf("The bookID has already existed! Unable to addBook()\n");
-            return size;
-        }
-    }
+    
 
     printf("Enter book title:\n");
     fgets(title, 40, stdin);
@@ -126,8 +117,18 @@ int addBook(Book *books, int size) {
 
     printf("Enter quantity:\n");
     scanf("%d", &books[size].quantity);
-
-   
+    if (size == MAX) {
+            printf("The bookshop is full! Unable to addBook()\n");
+            return size;
+        }
+   // Check if bookID already exists
+    for (i = 0; i < size; i++) {
+        if (bookID == books[i].bookID) {
+            printf("The bookID has already existed! Unable to addBook()\n");
+            return size;
+        }
+    }
+    
     books[size].bookID = bookID;
     strcpy(books[size].title, title);
     strcpy(books[size].author, author);
@@ -145,12 +146,6 @@ int removeBook(Book *books, int *size) {
 
     char targetTitle[40], targetAuthor[40], *p;
 
-    // Check if the bookshop is empty
-    if (*size == 0) {
-        printf("The bookshop is empty\n");
-        return *size;
-    }
-
     // Read target book information
     printf("Enter the target book title: \n");
     fgets(targetTitle, 40, stdin);
@@ -162,6 +157,12 @@ int removeBook(Book *books, int *size) {
     fgets(targetAuthor, 40, stdin);
     if (p = strchr(targetAuthor, '\n')) {
         *p = '\0';
+    }
+
+    // Check if the bookshop is empty
+    if (*size == 0) {
+        printf("The bookshop is empty\n");
+        return *size;
     }
 
     // Convert target book information to lowercase for case-insensitive comparison
@@ -193,10 +194,10 @@ int removeBook(Book *books, int *size) {
         if (strcmp(tempTitle, targetTitle) == 0 && strcmp(tempAuthor, targetAuthor) == 0) {
             // Display information about the removed book
             printf("The target book is removed\n");
-            printf("Book ID: %d\n", books[i].bookID);
-            printf("Title: %s\n", books[i].title);
-            printf("Author: %s\n", books[i].author);
-            printf("Price: %.2f\n", books[i].price);
+            printf("BookID: %d\n", books[i].bookID);
+            printf("Book title: %s\n", books[i].title);
+            printf("Author name: %s\n", books[i].author);
+            printf("Book price: %.2f\n", books[i].price);
             printf("Quantity: %d\n", books[i].quantity);
 
             // Shift remaining elements to fill the gap
@@ -214,6 +215,8 @@ int removeBook(Book *books, int *size) {
     printf("The target book is not in the bookshop\n");
     return *size;
 }
+
+
 
 void findBook(Book *books, int size) {
     printf("findBook():\n");
@@ -262,10 +265,10 @@ void findBook(Book *books, int size) {
         if (strcmp(tempTitle, targetTitle) == 0 && strcmp(tempAuthor, targetAuthor) == 0) {
             // Display information about the found book
             printf("The target book is found\n");
-            printf("Book ID: %d\n", books[i].bookID);
-            printf("Title: %s\n", books[i].title);
-            printf("Author: %s\n", books[i].author);
-            printf("Price: %.2f\n", books[i].price);
+            printf("BookID: %d\n", books[i].bookID);
+            printf("Book title: %s\n", books[i].title);
+            printf("Author name: %s\n", books[i].author);
+            printf("Book price: %.2f\n", books[i].price);
             printf("Quantity: %d\n", books[i].quantity);
             return;
         }
@@ -294,28 +297,38 @@ void updateBook(Book *books, int size) {
     }
 
     // Search for the target book in the bookshop
+    int found = 0;
     for (int i = 0; i < size; i++) {
         // Check if the current book matches the target book
-        if (strcmp(books[i].title, targetTitle) == 0 && strcmp(books[i].author, targetAuthor) == 0) {
+        if (strcasecmp(books[i].title, targetTitle) == 0 && strcasecmp(books[i].author, targetAuthor) == 0) {
             // Read updated price and quantity
-            printf("Enter the updated price for the book: ");
+            printf("Enter updated book price:\n");
             scanf("%lf", &books[i].price);
 
-            printf("Enter the updated quantity for the book: ");
+            printf("Enter updated quantity:\n");
             scanf("%d", &books[i].quantity);
 
             // Display information about the updated book
             printf("The target book is updated\n");
-            printf("Book ID: %d\n", books[i].bookID);
-            printf("Title: %s\n", books[i].title);
-            printf("Author: %s\n", books[i].author);
-            printf("Price: %.2f\n", books[i].price);
+            printf("BookID: %d\n", books[i].bookID);
+            printf("Book title: %s\n", books[i].title);
+            printf("Author name: %s\n", books[i].author);
+            printf("Book price: %.2f\n", books[i].price);
             printf("Quantity: %d\n", books[i].quantity);
-
-            return;
+            found = 1;
+            break; // Exit the loop once the target book is found and updated
         }
     }
+
+    // If the target book is not found
+    if (!found) {
+        printf("The target book is not in the bookshop\n");
+    }
+
+        
+    
 }
+
 
 void sortBooksAsc(Book *books, int size) {
    
