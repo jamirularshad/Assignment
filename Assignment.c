@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h> 
 #define MAX 5
 
 typedef struct
@@ -28,21 +29,45 @@ void sortBooksAsc(Book *books, int size) {
     // ...
 }
 
-// main function
-int main() {
-    // Example usage
-    const int MAX_BOOKS = 100;
-    Book bookshop[MAX_BOOKS];
-    int bookCount = 0;
 
-    // Example usage of functions
-    listBooks(bookshop, bookCount);
-    addBook(bookshop, &bookCount);
-    listBooks(bookshop, bookCount);
-    removeBook(bookshop, &bookCount);
-    listBooks(bookshop, bookCount);
-    sortBooksAsc(bookshop, bookCount);
-    listBooks(bookshop, bookCount);
+
+int main() {
+    Book bookshop[MAX];
+    char dummy;
+    int size = 0, choice;
+
+    // Menu
+    printf("NTU BOOKSHOP MANAGEMENT PROGRAM:\n");
+    printf("1: listBooks()\n");
+    printf("2: addBook()\n");
+    printf("3: removeBook()\n");
+    printf("4: findBook()\n");
+    printf("5: updateBook()\n");
+    printf("6: quit\n");
+
+    do {
+        printf("Enter your choice: \n");
+        scanf("%d", &choice);
+        scanf("%c", &dummy);
+
+        switch (choice) {
+            case 1:
+                listBooks(bookshop, size);
+                break;
+            case 2:
+                size = addBook(bookshop, size);
+                break;
+            case 3:
+                size = removeBook(bookshop, &size);
+                break;
+            case 4:
+                findBook(bookshop, size);
+                break;
+            case 5:
+                updateBook(bookshop, size);
+                break;
+        }
+    } while (choice < 6);
 
     return 0;
 }
@@ -316,5 +341,4 @@ void sortBooksAsc(Book *books, int size) {
             }
         }
     }
-}
 }
